@@ -1,0 +1,18 @@
+# Project config #
+project_name: 'DeepFake-Detection-more-data'
+log_level: INFO
+
+# Worker config #
+# Additional definition for the worker can be found here: https://docker-py.readthedocs.io/en/stable/containers.html
+
+num_gpus: 1
+
+worker:
+  image: atlas_ff
+
+  shm_size: 128G
+
+  volumes:
+    /media/biggie2/FaceForensics/datasets/:
+      bind: /datasets/
+      mode: rw
