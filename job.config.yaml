@@ -1,5 +1,5 @@
 # Project config #
-project_name: 'DeepFake-Detection-more-data'
+project_name: 'DeepFake-Detection-Debunked'
 log_level: INFO
 
 # Worker config #

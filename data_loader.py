@@ -85,9 +85,10 @@ class FFDataset(Dataset):
 
 def create_dataloaders(params):
     train_transforms, val_transforms = get_transforms()
-    train_dl = _create_dataloader(f'/datasets/{params["train_data"]}_deepfake', mode='train', batch_size=params['batch_size'], transformations=train_transforms)
-    val_base_dl = _create_dataloader(f'/datasets/base_deepfake/val', mode='val', batch_size=None, transformations=val_transforms)
-    val_augment_dl = _create_dataloader(f'/datasets/augment_deepfake/val', mode='val', batch_size=None, transformations=val_transforms)
+    train_dl = _create_dataloader(f'/datasets/{params["train_data"]}_deepfake', mode='train', batch_size=params['batch_size'],
+                                  transformations=train_transforms)
+    val_base_dl = _create_dataloader(f'/datasets/base_deepfake/val', mode='val', batch_size=params['batch_size'], transformations=val_transforms)
+    val_augment_dl = _create_dataloader(f'/datasets/augment_deepfake/val', mode='val', batch_size=params['batch_size'], transformations=val_transforms)
     display_file_paths = [f'/datasets/{i}_deepfake/val' for i in ['base', 'augment']]
     display_dl_iter = iter(_create_dataloader(display_file_paths, mode='val', batch_size=32, transformations=val_transforms))
     
@@ -113,10 +114,6 @@ def _create_dataloader(file_paths, mode, batch_size, transformations, num_worker
     np.random.shuffle(filenames)
     
     ds = FFDataset(filenames, filepath=f'/datasets/precomputed/', transform=transformations, recompute=False)
-    
-    if batch_size is None:
-        batch_size = len(ds)
-        
     dl = DataLoader(ds, batch_size=batch_size, num_workers=num_workers, shuffle=True, collate_fn=collate_fn)
     
     print(f"{mode} data: {len(ds)}")

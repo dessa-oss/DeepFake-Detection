@@ -37,7 +37,7 @@ criterion = nn.CrossEntropyLoss()
 
 print('Creating model')
 # Create model, freeze layers and change last layer
-model = create_model(params['dropout'])
+model = create_model(bool(params['use_hidden_layer']), params['dropout'])
 _ = print_model_params(model)
 params_to_update = get_trainable_params(model)
 
