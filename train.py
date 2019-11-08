@@ -2,6 +2,7 @@ import torch
 from tqdm import tqdm
 from apex import amp
 import numpy as np
+import os
 
 from utils import visualize_metrics, display_predictions_on_image
 from sklearn.metrics import roc_auc_score as extra_metric
@@ -30,7 +31,7 @@ class Records:
         return ['train_accs_wo_dropout', 'base_val_accs', 'augment_val_accs', 'base_val_custom_metrics', 'augment_val_custom_metrics']
     
 
-def train_one_epoch(epoch, model, train_dl, max_lr, optimizer, criterion, extra_metric, scheduler, records):
+def train_one_epoch(epoch, model, train_dl, max_lr, optimizer, criterion, scheduler, records):
     model.train()
     train_loss = 0
     train_loss_eval = 0
@@ -103,7 +104,7 @@ def train_one_epoch(epoch, model, train_dl, max_lr, optimizer, criterion, extra_
     print(f'Epoch {epoch}: eval_ loss={records.train_losses_wo_dropout[-1]:.4f} | train acc={records.train_accs_wo_dropout[-1]:.4f}')
 
 
-def validate(model, val_dl, criterion, extra_metric, records, data_name):
+def validate(model, val_dl, criterion, records, data_name):
     # val
     model.eval()
     val_loss = 0
@@ -153,12 +154,31 @@ def validate(model, val_dl, criterion, extra_metric, records, data_name):
 
 def train(train_dl, val_base_dl, val_augment_dl, display_dl_iter, model, optimizer, n_epochs, max_lr, scheduler, criterion, train_source):
     records = Records()
+    best_metric = 0.
+    
+    os.makedirs('checkpoints', exist_ok=True)
     
     for epoch in range(n_epochs):
-        train_one_epoch(epoch, model, train_dl, max_lr, optimizer, criterion, extra_metric, scheduler, records)
-        validate(model, val_base_dl, criterion, extra_metric, records, data_name='base')
-        validate(model, val_augment_dl, criterion, extra_metric, records, data_name='augment')
+        train_one_epoch(epoch, model, train_dl, max_lr, optimizer, criterion, scheduler, records)
+        validate(model, val_base_dl, criterion, records, data_name='base')
+        validate(model, val_augment_dl, criterion, records, data_name='augment')
         
+        if train_source == 'both':
+            selection_metric = [getattr(records, 'base_val_accs')[-1], getattr(records, 'augment_val_accs')[-1]]
+            selection_metric = np.mean(selection_metric)
+            
+        else:
+            selection_metric = getattr(records, f"{train_source}_val_accs")[-1]
+            
+        if selection_metric >= best_metric:
+            print(f'>>> Saving best model metric={selection_metric:.4f} compared to previous best {best_metric:.4f}')
+            checkpoint = {'model': model,
+                          'state_dict': model.state_dict(),
+                          'optimizer': optimizer.state_dict()}
+            
+            torch.save(checkpoint, 'checkpoints/best_model.pth')
+            foundations.save_artifact('checkpoints/best_model.pth', key='pretrained_model_checkpoint')
+            
         display_filename = f'{epoch}_display.png'
         display_predictions_on_image(model, val_base_dl.dataset.cached_path, display_dl_iter, name=display_filename)
         
