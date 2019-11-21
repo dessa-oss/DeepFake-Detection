@@ -1,9 +1,24 @@
-![Parallel coordinates plot](https://github.com/dessa-public/DeepFake-Detection.git/images/parcoords.gif)
+![Parallel coordinates plot](https://github.com/dessa-public/DeepFake-Detection/tree/master/images/parcoords.gif)
 
 # Visual DeepFake Detection
 
 We built a fake video detection model with Foundations Atlas, for anyone to use. 
 We will be releasing an article soon about the motivation, as well as the process of the creation of this project.
+
+In our recent [article](add link), we make the following contributions:
+* We show that the model proposed in current state of the art in video manipulation (FaceForensics++) does not generalize to real-life videos randomly 
+collected 
+from Youtube.
+* We show the need for the detector to be constantly updated with real-world data, and propose an initial solution in hopes of solving deepfake video detection.
+
+Our Pytorch implementation, conducts extensive experiments to demonstrate that the datasets produced by Google and detailed in the FaceForensics++ 
+paper are not sufficient for making neural networks generalize to detect real-life face manipulation techniques. It also provides a current solution for such
+ behavior which relies on adding more data. 
+ 
+Our Pytorch model is based on a pre-trained ResNet18 on Imagenet, that we finetune to solve the deepfake detection problem.
+We also conduct large scale experiments using Dessa's homemade scheduler + experiment manger [Atlas](www.atlas.dessa.com/?=deepfake_detection_git)
+
+To check the results we achieved in the article, please check our [interactive results UI](add link to atlas UI)
 
 ## Setup 
 0. install [nvidia-docker](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0))
@@ -18,8 +33,9 @@ RAM >= 32GB , GPUs >=1
 
 ## Datasets
 Half of the dataset used in this project is from the [FaceForensics](https://github.com/ondyari/FaceForensics/tree/master/dataset) deepfake detection dataset
-. The second half of the data will be added later, when we release the article.
+. To download this data, please make sure to fill out the [google form](https://github.com/ondyari/FaceForensics/#access) to request access to the data.
 
+For the dataset that we collected from Youtube, it is accessible on [S3](add link) for download.
 
 To get started, you need to request to download this data from the FaceForensics repository.
 
