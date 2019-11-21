@@ -1,4 +1,4 @@
-![Parallel coordinates plot](https://github.com/dessa-public/DeepFake-Detection/tree/master/images/parcoords.gif)
+![parallel coordinates plot](/images/parcoords.gif)
 
 # Visual DeepFake Detection
 
