@@ -1,10 +1,12 @@
+![Parallel coordinates plot](https://github.com/dessa-public/DeepFake-Detection.git/images/parcoords.gif)
+
 # Visual DeepFake Detection
 
 We built a fake video detection model with Foundations Atlas, for anyone to use. 
 We will be releasing an article soon about the motivation, as well as the process of the creation of this project.
 
 ## Setup 
-0. install [nvidia-docker](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)
+0. install [nvidia-docker](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0))
 1. Git Clone this repository.
 2. If you haven't already, install [Foundations Atlas Community Edition](https://www.atlas.dessa.com/?u=dessafake).
 3. Once you've installed Foundations Atlas, activate your environment if you haven't already, and navigate to your project folder

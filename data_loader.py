@@ -86,16 +86,19 @@ class FFDataset(Dataset):
 def create_dataloaders(params):
     train_transforms, val_transforms = get_transforms()
     train_dl = _create_dataloader(f'/datasets/{params["train_data"]}_deepfake', mode='train', batch_size=params['batch_size'],
-                                  transformations=train_transforms)
-    val_base_dl = _create_dataloader(f'/datasets/base_deepfake/val', mode='val', batch_size=params['batch_size'], transformations=val_transforms)
-    val_augment_dl = _create_dataloader(f'/datasets/augment_deepfake/val', mode='val', batch_size=params['batch_size'], transformations=val_transforms)
+                                  transformations=train_transforms, sample_ratio=params['sample_ratio'])
+    val_base_dl = _create_dataloader(f'/datasets/base_deepfake/val', mode='val', batch_size=params['batch_size'], transformations=val_transforms,
+                                     sample_ratio=params['sample_ratio'])
+    val_augment_dl = _create_dataloader(f'/datasets/augment_deepfake/val', mode='val', batch_size=params['batch_size'], transformations=val_transforms,
+                                        sample_ratio=params['sample_ratio'])
     display_file_paths = [f'/datasets/{i}_deepfake/val' for i in ['base', 'augment']]
-    display_dl_iter = iter(_create_dataloader(display_file_paths, mode='val', batch_size=32, transformations=val_transforms))
+    display_dl_iter = iter(_create_dataloader(display_file_paths, mode='val', batch_size=32, transformations=val_transforms,
+                                              sample_ratio=params['sample_ratio']))
     
     return train_dl, val_base_dl, val_augment_dl, display_dl_iter
 
 
-def _create_dataloader(file_paths, mode, batch_size, transformations, num_workers=80):
+def _create_dataloader(file_paths, mode, batch_size, transformations, sample_ratio, num_workers=80):
     if not isinstance(file_paths, list):
         file_paths = [file_paths]
     
@@ -112,6 +115,9 @@ def _create_dataloader(file_paths, mode, batch_size, transformations, num_worker
     # filenames = real_frame_filenames + fake_frame_filenames
     assert len(filenames) != 0, f'filenames are empty {filenames}'
     np.random.shuffle(filenames)
+    
+    if mode == 'train':
+        filenames = filenames[:int(sample_ratio * len(filenames))]
     
     ds = FFDataset(filenames, filepath=f'/datasets/precomputed/', transform=transformations, recompute=False)
     dl = DataLoader(ds, batch_size=batch_size, num_workers=num_workers, shuffle=True, collate_fn=collate_fn)

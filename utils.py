@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 
 import foundations
 
+
 def get_boundingbox(face, width, height, scale=1.3, minsize=None):
     x1 = face.left()
     y1 = face.top()
@@ -54,6 +55,7 @@ def get_face_crop(face_detector, image):
         cropped_face = image[y:y + size, x:x + size]
         return cropped_face
     
+
 def visualize_metrics(records, extra_metric, name):
     fig, axes = plt.subplots(nrows=1, ncols=4, figsize=(15, 6))
     axes[0].plot(list(range(len(records.train_losses))), records.train_losses, label='train')
@@ -67,7 +69,8 @@ def visualize_metrics(records, extra_metric, name):
     axes[1].plot(list(range(len(records.train_accs_wo_dropout))), records.train_accs_wo_dropout, label='train w/o dropout')
     axes[1].plot(list(range(len(records.base_val_accs))), records.base_val_accs, label='base_val')
     axes[1].plot(list(range(len(records.augment_val_accs))), records.augment_val_accs, label='augment_val')
-    axes[1].axhline(y=0.5, color='r', ls='--')
+    axes[1].axhline(y=0.5, color='g', ls='--')
+    axes[1].axhline(y=0.667, color='r', ls='--')
     axes[1].set_title('acc')
     axes[1].legend()
     
@@ -75,6 +78,7 @@ def visualize_metrics(records, extra_metric, name):
     axes[2].plot(list(range(len(records.train_custom_metrics_wo_dropout))), records.train_custom_metrics_wo_dropout, label='train w/o dropout')
     axes[2].plot(list(range(len(records.base_val_custom_metrics))), records.base_val_custom_metrics, label='base_val')
     axes[2].plot(list(range(len(records.augment_val_custom_metrics))), records.augment_val_custom_metrics, label='augment_val')
+    axes[2].axhline(y=0.5, color='g', ls='--')
     axes[2].axhline(y=0.5, color='r', ls='--')
     axes[2].set_title(f'{extra_metric.__name__}')
     axes[2].legend()
