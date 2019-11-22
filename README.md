@@ -125,3 +125,5 @@ To re-use some of the models we pre-trained in our experiments, it is possible t
 Download the model file, stored as `best_model.pth`.
 
 ![download model](/images/download_model.png)
+
+Note: Some of the experiments don't have pre-trained models as we didn't introduce saving checkpoints at that point in time.
