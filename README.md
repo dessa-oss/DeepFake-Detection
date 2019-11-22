@@ -127,3 +127,9 @@ Download the model file, stored as `best_model.pth`.
 ![download model](/images/download_model.png)
 
 Note: Some of the experiments don't have pre-trained models as we didn't introduce saving checkpoints at that point in time.
+
+## Help improve this technology
+
+Please feel free to fork this work and keep pushing on it.
+
+If you also want to help improving the deepfake detection datasets, please share your real/forged samples at foundations@dessa.com
