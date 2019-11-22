@@ -13,7 +13,7 @@ paper are not sufficient for making neural networks generalize to detect real-li
  behavior which relies on adding more data. 
  
 Our Pytorch model is based on a pre-trained ResNet18 on Imagenet, that we finetune to solve the deepfake detection problem.
-We also conduct large scale experiments using Dessa's homemade scheduler + experiment manger [Atlas](www.atlas.dessa.com/?=deepfake_detection_git)
+We also conduct large scale experiments using Dessa's homemade scheduler + experiment manger [Atlas](www.atlas.dessa.com/)
 
 To check the results we achieved in the article, please check our [interactive results UI](http://deepfake-detection.dessa.com/projects)
 
