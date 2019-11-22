@@ -26,9 +26,7 @@ def get_transforms():
     
     train_transforms = transforms.Compose([
         transforms.RandomHorizontalFlip(),
-        #     transforms.RandomVerticalFlip(),
         transforms.RandomAffine(degrees=40, scale=(.9, 1.1), shear=0),
-        #     transforms.RandomRotation(degrees=40),
         transforms.RandomPerspective(distortion_scale=0.2),
         transforms.ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5),
         transforms.ToTensor(),
@@ -112,7 +110,6 @@ def _create_dataloader(file_paths, mode, batch_size, transformations, sample_rat
         filenames += real_frame_filenames
         filenames += fake_frame_filenames
         
-    # filenames = real_frame_filenames + fake_frame_filenames
     assert len(filenames) != 0, f'filenames are empty {filenames}'
     np.random.shuffle(filenames)
     

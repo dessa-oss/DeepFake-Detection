@@ -1,5 +1,5 @@
 # Project config #
-project_name: 'DeepFake-Detection-max-data-analysis'
+project_name: 'DeepFake-Detection'
 log_level: INFO
 
 # Worker config #
@@ -13,6 +13,6 @@ worker:
   shm_size: 128G
 
   volumes:
-    /media/biggie2/FaceForensics/datasets/:
+    /media/biggie2/deepfake_detection/datasets/:
       bind: /datasets/
       mode: rw

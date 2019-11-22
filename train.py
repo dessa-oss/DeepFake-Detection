@@ -41,8 +41,6 @@ def train_one_epoch(epoch, model, train_dl, max_lr, optimizer, criterion, schedu
     total = 0
     correct_count = 0
     correct_count_eval = 0
-    # f1_total = 0
-    # f1_total_eval = 0
     
     for step, data in enumerate(train_tk):
         model.train()
@@ -61,7 +59,6 @@ def train_one_epoch(epoch, model, train_dl, max_lr, optimizer, criterion, schedu
             total += labels.size(0)
             
             correct_count += (predicted == labels).sum().item()
-            # f1_total += extra_metric(labels.cpu().numpy(), predicted.cpu().numpy())
             
             loss = criterion(outputs, labels)
             with amp.scale_loss(loss, optimizer) as scaled_loss:
@@ -85,7 +82,6 @@ def train_one_epoch(epoch, model, train_dl, max_lr, optimizer, criterion, schedu
             _, predicted_eval = torch.max(outputs_eval.data, 1)
             
             correct_count_eval += (predicted_eval == labels).sum().item()
-            # f1_total_eval += extra_metric(labels.cpu().numpy(), predicted_eval.cpu().numpy())
             
             loss_eval = criterion(outputs_eval, labels)
         
@@ -93,11 +89,9 @@ def train_one_epoch(epoch, model, train_dl, max_lr, optimizer, criterion, schedu
     
     records.train_losses_wo_dropout.append(train_loss_eval / (step + 1))
     records.train_accs_wo_dropout.append(correct_count_eval / total)
-    # records.train_custom_metrics_wo_dropout.append(f1_total_eval / len(train_dl))
     
     records.train_losses.append(train_loss / (step + 1))
     records.train_accs.append(correct_count / total)
-    # records.train_custom_metrics.append(f1_total / len(train_dl))
     
     print(f'Epoch {epoch}: train loss={records.train_losses[-1]:.4f} | train acc={records.train_accs[-1]:.4f}')
     
