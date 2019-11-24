@@ -1,8 +1,10 @@
 ![parallel coordinates plot](/images/parcoords.gif)
 
+Read the technical deep dive: https://www.dessa.com/post/deepfake-detection-that-actually-works
+
 # Visual DeepFake Detection
 
-In our recent [article](add link), we make the following contributions:
+In our recent [article](https://www.dessa.com/post/deepfake-detection-that-actually-works), we make the following contributions:
 * We show that the model proposed in current state of the art in video manipulation (FaceForensics++) does not generalize to real-life videos randomly 
 collected 
 from Youtube.
