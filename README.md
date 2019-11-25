@@ -117,6 +117,37 @@ Then, to run all the experiments we will show in the article to come, you can la
 python hparams_search.py
 ```
 
+## Results
+
+In the following pictures, the title for each subplot is in the form `real_prob, fake_prob | prediction | label`.
+
+#### Model trained on FaceForensics++ dataset
+
+For models trained on the paper dataset alone, we notice that the model only learns to detect the manipulation techniques mentioned in the paper and misses 
+all the manipulations in real world data (from data)
+
+![model1](/images/model1.png)
+![model11](/images/model11.png)
+
+#### Model trained on Youtube dataset
+
+Models trained on the youtube data alone learn to detect real world deepfakes, but also learn to detect easy deepfakes in the paper dataset as well. These 
+models however fail to detect any other type of manipulation (such as NeuralTextures).
+
+![model2](/images/model2.png)
+![model22](/images/model22.png)
+
+#### Model trained on Paper + Youtube dataset
+
+Finally, models trained on the combination of both datasets together, learns to detect both real world manipulation techniques as well as the other methods 
+mentioned in FaceForensics++ paper. 
+
+![model3](/images/model3.png)
+![model33](/images/model33.png)
+
+for a more in depth explanation of these results, please refer to the [article](https://www.dessa.com/post/deepfake-detection-that-actually-works) we published. More results can be seen in the 
+[interactive UI](http://deepfake-detection.dessa.com/projects)
+
 ## Using the Pre-trained Model 
 
 To re-use some of the models we pre-trained in our experiments, it is possible to go on the 
