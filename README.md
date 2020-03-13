@@ -15,25 +15,28 @@ paper are not sufficient for making neural networks generalize to detect real-li
  behavior which relies on adding more data. 
  
 Our Pytorch model is based on a pre-trained ResNet18 on Imagenet, that we finetune to solve the deepfake detection problem.
-We also conduct large scale experiments using Dessa's homemade scheduler + experiment manger [Atlas](www.atlas.dessa.com/)
-
-To check the results we achieved in the article, please check our [interactive results UI](http://deepfake-detection.dessa.com/projects)
+We also conduct large scale experiments using Dessa's open source scheduler + experiment manger [Atlas](https://github.com/dessa-research/atlas).
 
 ## Setup 
-0. install [nvidia-docker](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0))
-00. install [ffmpeg](https://www.ffmpeg.org/download.html) or `sudo apt install ffmpeg`
+
+## Prerequisities
+To run the code, your system should meet the following requirements: RAM >= 32GB , GPUs >=1
+
+## Steps
+
+0. Install [nvidia-docker](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0))
+00. Install [ffmpeg](https://www.ffmpeg.org/download.html) or `sudo apt install ffmpeg`
 1. Git Clone this repository.
-2. If you haven't already, install [Foundations Atlas Community Edition](https://www.atlas.dessa.com/?u=dessafake).
-3. Once you've installed Foundations Atlas, activate your environment if you haven't already, and navigate to your project folder
+2. If you haven't already, install [Atlas](https://github.com/dessa-research/atlas).
+3. Once you've installed Atlas, activate your environment if you haven't already, and navigate to your project folder.
 
 That's it, You're ready to go!
 
-Note: To run the code, your system should meet the following requirements: 
-RAM >= 32GB , GPUs >=1
-
 ## Datasets
-Half of the dataset used in this project is from the [FaceForensics](https://github.com/ondyari/FaceForensics/tree/master/dataset) deepfake detection dataset
-. To download this data, please make sure to fill out the [google form](https://github.com/ondyari/FaceForensics/#access) to request access to the data.
+Half of the dataset used in this project is from the [FaceForensics](https://github.com/ondyari/FaceForensics/tree/master/dataset) deepfake detection dataset.
+. 
+
+To download this data, please make sure to fill out the [google form](https://github.com/ondyari/FaceForensics/#access) to request access to the data.
 
 For the dataset that we collected from Youtube, it is accessible on [S3](ttps://deepfake-detection.s3.amazonaws.com/augment_deepfake.tar.gz) for download.
 
@@ -148,21 +151,11 @@ mentioned in FaceForensics++ paper.
 for a more in depth explanation of these results, please refer to the [article](https://www.dessa.com/post/deepfake-detection-that-actually-works) we published. More results can be seen in the 
 [interactive UI](http://deepfake-detection.dessa.com/projects)
 
-## Using the Pre-trained Model 
-
-To re-use some of the models we pre-trained in our experiments, it is possible to go on the 
-[interactive results UI](http://deepfake-detection.dessa.com/projects), and pick which experiment you want to download the model for:
-
-![open artifacts](/images/open_artifacts.png)
-
-Download the model file, stored as `best_model.pth`.
-
-![download model](/images/download_model.png)
-
-Note: Some of the experiments don't have pre-trained models as we didn't introduce saving checkpoints at that point in time.
-
 ## Help improve this technology
 
 Please feel free to fork this work and keep pushing on it.
 
-If you also want to help improving the deepfake detection datasets, please share your real/forged samples at foundations@dessa.com
+If you also want to help improving the deepfake detection datasets, please share your real/forged samples at foundations@dessa.com.
+
+## LICENSE
+© 2020 Square, Inc. ATLAS, DESSA, the Dessa Logo, and others are trademarks of Square, Inc. All third party names and trademarks are properties of their respective owners and are used for identification purposes only.
