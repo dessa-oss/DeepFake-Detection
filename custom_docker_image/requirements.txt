@@ -11,7 +11,7 @@ dill==0.2.8.2
 google-api-python-client==1.7.3
 google-auth-httplib2==0.0.3
 google-cloud-storage==1.10.0
-PyYAML==5.1.2
+PyYAML==5.4
 freezegun==0.3.12
 flask-restful==0.3.7
 Flask==1.1.1
