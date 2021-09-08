@@ -1,7 +1,7 @@
 numpy==1.17.3
 dlib==19.15.0
 pathlib==1.0.1
-Pillow==6.2.0
+Pillow==8.3.2
 tqdm==4.25.0
 scikit-learn==0.21.3
 matplotlib==3.1.1
